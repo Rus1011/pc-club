@@ -74,7 +74,6 @@ class Reservation(models.Model):
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='reservations')
     room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name='Комната')
-    pc = models.ForeignKey(PC, on_delete=models.CASCADE, verbose_name='Компьютер', null=True, blank=True)
     date = models.DateField('Дата')
     start_time = models.TimeField('Время начала')
     end_time = models.TimeField('Время окончания')
@@ -96,7 +95,7 @@ class Session(models.Model):
         ('paused', 'Приостановлена'),
     ]
     
-    reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE, verbose_name='Бронь', related_name='session')
+    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE, verbose_name='Бронь', related_name='session')
     pc = models.ForeignKey(PC, on_delete=models.CASCADE, verbose_name='Компьютер')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     start_time = models.DateTimeField('Время начала сессии', auto_now_add=True)
